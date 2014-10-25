@@ -1,0 +1,22 @@
+#ifndef __PARTICLE_H__
+#define __PARTICLE_H__
+
+#include <GL/freeglut.h>
+#include <vector>
+
+namespace xishanju{
+  struct particle{
+    float x;
+    float y;
+    float z;
+    float x_scale;
+    float y_scale;
+  };
+  class ParticleSystem {
+  private:
+    std::vector<struct particle> particles_;
+    
+  }
+}
+
+#endif
