@@ -2,12 +2,12 @@ CC = g++
 CFLAGS = -Wall
 PROG = cube
 
-SRCS = main.cpp particle.cpp
+SRCS = main.cpp particle.cpp billboardSystem.cpp
 
 ifeq ($(shell uname),Darwin)
 	LIBS = -framework OpenGL -framework GLUT
 else
-	LIBS = -lGL -lGLU -lglut
+	LIBS = -lGL -lGLU -lglut -lpng
 endif
 
 all: $(PROG)

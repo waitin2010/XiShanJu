@@ -1,24 +1,43 @@
 #include "billboardSystem.hpp"
 #include <GL/freeglut.h>
+#include "common.h"
+
 using namespace xishanju;
 
 Billboard::Billboard(float a, float b, float c, float xw, float yw):\
-  x(a), y(b), z(c), x_width(xw/2), y_width(yw/2){
+  x(a), y(b), z(c), x_width(xw/2), y_width(yw/2), tex_id(0){
 
 }
 Billboard::~Billboard(){
 }
 
 void Billboard::drawBillboard(){
-  glColor3f(0.0, 0.2, 0.0);
+  glEnable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D, tex_id);
+
+  glEnable(GL_BLEND);
+
   glBegin(GL_QUADS);
+  glTexCoord2f(0, 0);
   glVertex3f(x - x_width, y - y_width, z);
+  glTexCoord2f(1, 0);
   glVertex3f(x + x_width, y - y_width, z);
+  glTexCoord2f(1, 1);
   glVertex3f(x + x_width, y + y_width, z);
+  glTexCoord2f(0, 1);
   glVertex3f(x - x_width, y + y_width, z);
   glEnd();
-}
 
+  glBindTexture(GL_TEXTURE_2D, 0);
+  glDisable(GL_TEXTURE_2D);
+  glDisable(GL_BLEND);
+
+  
+}
+void Billboard::useTexture(char *fileName){
+  tex_id = createTexture(fileName);
+  printf("%d \n", tex_id);
+}
 BillboardSystem::BillboardSystem(){
 }
 
@@ -34,6 +53,12 @@ bool BillboardSystem::initBillboards(){
   Billboard b4(400, -25, 10);
   Billboard b5(200, 70, 50);
   
+  b1.useTexture("../image/center.png");
+  b2.useTexture("../image/b1.png");
+  b3.useTexture("../image/b2.png");
+  b4.useTexture("../image/b3.png");
+  b5.useTexture("../image/b4.png");
+
   billboards_.push_back(b1);
   billboards_.push_back(b2);
   billboards_.push_back(b3);

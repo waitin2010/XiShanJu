@@ -1,12 +1,17 @@
 #include <GL/freeglut.h>
 
 #include "particle.hpp"
+#include "billboardSystem.hpp"
+
 // window size
-int width = 800;
+int width = 1200;
 int height = 400;
 
 // Particle System
 xishanju::ParticleSystem ps;
+
+// Billboard Sytem
+xishanju::BillboardSystem bs;
 
 void initRendering(){
   glEnable(GL_DEPTH_TEST);
@@ -29,6 +34,7 @@ void drawScene() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   ps.drawParticles();
+  bs.drawBillboards();
 
   glutSwapBuffers();
 }
@@ -42,6 +48,8 @@ int main(int argc, char **argv){
   
   initRendering();
   ps.initParticles();
+  bs.initBillboards();
+
   glutDisplayFunc(drawScene);
   glutReshapeFunc(handleResize);
   glutMainLoop();
